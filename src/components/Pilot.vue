@@ -140,6 +140,7 @@ import nrfawData from 'lancer-nrfaw-data'
 import longrimData from 'lancer-longrim-data'
 
 import wallflowerData from '@/assets/LCPs/wallflower-data-2.0.5'
+import dustgraveTalents from '@/assets/LCPs/dustgrave-data/talents.json'
 /*Append the datasets within computed if your LCP has new items.
 EX:
 pilotGear() {
@@ -179,6 +180,7 @@ export default {
   },
   computed: {
     pilotPortrait() {
+      if (this.pilot.portrait) return this.pilot.portrait
       return `/pilots/${this.pilot.callsign.toUpperCase()}.webp`
     },
     mechPortrait() {
@@ -194,7 +196,7 @@ export default {
       return [...lancerData.systems, ...ktbData.systems, ...nrfawData.systems, ...longrimData.systems]
     },
     talents() {
-      return [...lancerData.talents, ...ktbData.talents, ...nrfawData.talents, ...longrimData.talents]
+      return [...lancerData.talents, ...ktbData.talents, ...nrfawData.talents, ...longrimData.talents, ...dustgraveTalents]
     },
     skills() {
       return [...lancerData.skills]    

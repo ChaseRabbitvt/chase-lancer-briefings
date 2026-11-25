@@ -46,6 +46,7 @@ export default {
 	},
 	computed: {
     pilotPortrait() {
+      if (this.pilot.portrait) return this.pilot.portrait
       return `/pilots/${this.pilot.callsign.toUpperCase()}.webp`
     },
     mechPortrait() {
