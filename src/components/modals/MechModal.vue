@@ -119,6 +119,7 @@ export default {
       return `/pilots/${this.pilot.callsign.toUpperCase()}.webp`
     },
     mechPortrait() {
+      if (this.mech.portrait) return this.mech.portrait
       return `/mechs/${this.pilot.callsign.toUpperCase()}.webp`
     },
   },
