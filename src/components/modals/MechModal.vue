@@ -80,9 +80,7 @@ export default {
     return {
       markdownHtml: true,
       activeLoadout: {},
-      mainMounts: [],
-      flexMounts: [],
-      heavyMounts: [],
+      mountEntries: [],
       mechSystems: [],
     }
   },
@@ -99,12 +97,20 @@ export default {
       this.getMechSystems();
   },
   computed: {
+    // Smallest to largest: Flex, Main, Heavy, Superheavy, then Integrated (anything else)
     mounts() {
-      return [
-        ...this.mainMounts.map((m) => ({ label: 'Main Mount', flavorName: m.flavorName })),
-        ...this.flexMounts.map((m) => ({ label: 'Flex Mount', flavorName: m.flavorName })),
-        ...this.heavyMounts.map((m) => ({ label: 'Heavy Mount', flavorName: m.flavorName })),
-      ]
+      const order = ['Flex', 'Main', 'Heavy', 'Superheavy']
+      const rank = (type) => {
+        const idx = order.indexOf(type)
+        return idx === -1 ? order.length : idx
+      }
+      return this.mountEntries
+        .map((entry, index) => ({ ...entry, index }))
+        .sort((a, b) => rank(a.type) - rank(b.type) || a.index - b.index)
+        .map((entry) => ({
+          label: order.includes(entry.type) ? `${entry.type} Mount` : 'Integrated Mount',
+          flavorName: entry.flavorName,
+        }))
     },
     pilotPortrait() {
       return `/pilots/${this.pilot.callsign.toUpperCase()}.webp`
@@ -120,44 +126,28 @@ export default {
       this.activeLoadout = this.mech.loadouts[activeLoadoutIdx]
     },
     getMechMounts() {
-      let resolveMountSlots = (type, item, idx, arr) => {
+      let resolveMountSlots = (type, item) => {
         item = item || {id: "", flavorName: ""}
+        if (item.id == "") return;
         const mountObj = this.weaponsData.find((obj) => { return item.id === obj.id }) || null
         item.flavorName = mountObj?.name || "";
-
-        switch (type) {
-          case 'Main':
-            if (item.id == "") break;
-            this.mainMounts = [...this.mainMounts, item];
-            break;
-          case 'Flex':
-            if (item.id == "") break;
-            this.flexMounts = [...this.flexMounts, item];
-            break;
-          // case "Auxiliary":
-          //   this.mainMounts = [...this.mainMounts, item];
-          //   break;
-          case 'Heavy':
-            if (item.id == "") break;
-            this.heavyMounts = [...this.heavyMounts, item];
-            break;
-          default:
-            if (item.id == "") break;
-            this.mainMounts = [...this.mainMounts, item];
-            break;
-        }
+        this.mountEntries = [...this.mountEntries, { type, flavorName: item.flavorName }];
       }
-      this.activeLoadout.mounts.forEach((mount) => {
+      const allMounts = [
+        ...(this.activeLoadout.mounts || []).map((mount) => ({ mount, type: mount.mount_type })),
+        ...(this.activeLoadout.integratedMounts || []).map((mount) => ({ mount, type: 'Integrated' })),
+      ]
+      allMounts.forEach(({ mount, type }) => {
         const mountSlots = mount.slots
         const mountSlotsIsArray = Array.isArray(mountSlots) && mountSlots.length > 0
         if (mountSlotsIsArray) {
-          mountSlots.forEach((slot, index, array) => resolveMountSlots(mount.mount_type, slot.weapon, index, array));
+          mountSlots.forEach((slot) => resolveMountSlots(type, slot.weapon));
         }
 
         const mountExtras = mount.extra
         const mountExtrasIsArray = Array.isArray(mountExtras) && mountExtras.length > 0
         if (mountExtrasIsArray) {
-          mountExtras.forEach((extra, index, array) => resolveMountSlots(mount.mount_type, extra.weapon, index, array));
+          mountExtras.forEach((extra) => resolveMountSlots(type, extra.weapon));
         }
       })
     },
