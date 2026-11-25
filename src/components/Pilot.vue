@@ -141,6 +141,7 @@ import longrimData from 'lancer-longrim-data'
 
 import wallflowerData from '@/assets/LCPs/wallflower-data-2.0.5'
 import dustgraveTalents from '@/assets/LCPs/dustgrave-data/talents.json'
+import dustgraveSystems from '@/assets/LCPs/dustgrave-data/systems.json'
 /*Append the datasets within computed if your LCP has new items.
 EX:
 pilotGear() {
@@ -193,7 +194,7 @@ export default {
       return [...lancerData.weapons, ...ktbData.weapons, ...nrfawData.weapons, ...longrimData.weapons]
     },
     mechSystems() {
-      return [...lancerData.systems, ...ktbData.systems, ...nrfawData.systems, ...longrimData.systems]
+      return [...lancerData.systems, ...ktbData.systems, ...nrfawData.systems, ...longrimData.systems, ...dustgraveSystems]
     },
     talents() {
       return [...lancerData.talents, ...ktbData.talents, ...nrfawData.talents, ...longrimData.talents, ...dustgraveTalents]

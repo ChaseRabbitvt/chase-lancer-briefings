@@ -1,0 +1,23 @@
+[
+  {
+    "id": "ms_iconoclast",
+    "name": "Unstable NHP",
+    "type": "AI",
+    "sp": 0,
+    "source": "",
+    "license": "GMS",
+    "license_level": 0,
+    "effect": "Your Mech gains the AI tag; however, this NHP doesn’t count towards the number of AIs you may have installed at once. You are unable to hand over control of your mech to the Unstable NHP as a Protocol, but it can enter cascade. <br>Your mech gains “Memetic Spark.”",
+    "description": "Gained from the <i>Iconoclast: Rank I</i> pilot talent."
+  },
+  {
+    "id": "ms_armament_redundancy",
+    "name": "Armament Redundancy",
+    "sp": 1,
+    "source": "GMS",
+    "license": "GMS",
+    "license_level": 0,
+    "effect": "You may choose to ignore weapon destruction as a result of the SYSTEM TRAUMA result when taking structure damage. This system can only be used once before each FULL REPAIR, and is not a valid target for system destruction.",
+    "description": "By installing additional armor plating, redundant firing circuits, and enhanced insulation to magazines the longevity of a frame’s armaments can be greatly enhanced."
+  }
+]
