@@ -352,6 +352,7 @@ export default {
         trapFocus: true,
         props: {
           pilot: this.pilot,
+          pilotGear: this.pilotGear,
           talents: this.talents,
           skills: this.skills,
           frames: this.frames,

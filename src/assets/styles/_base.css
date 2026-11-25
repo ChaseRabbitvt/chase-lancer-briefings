@@ -1018,9 +1018,41 @@ section .section-header h1 {
 	margin-top: -38px;
 	width: 888px;
 	height: 662px;
+	display: flex;
+	flex-direction: column;
 }
 .pilot-modal div.pilot div.markdown {
-	height: 662px;
+	height: 100%;
+	overflow-y: auto;
+}
+.pilot-modal .pilot-gear {
+	border-bottom: 1px solid var(--primary-color);
+	padding: 1em 1em 0.5em 1em;
+}
+.pilot-modal .pilot-gear .gear-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	column-gap: 2em;
+	row-gap: 0.5em;
+	padding-bottom: 0.5em;
+}
+.pilot-modal .pilot-gear h1 {
+	font-size: 12px;
+	font-weight: 400;
+	font-family: "Roboto", sans-serif;
+	line-height: 1.5em;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	color: var(--text-pilot-header);
+}
+.pilot-modal .pilot-gear h2 {
+	font-size: 18px;
+	font-weight: 700;
+	font-family: "Titillium Web", sans-serif;
+	line-height: 1.5em;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+	color: var(--text-pilot-value);
 }
 .pilot-modal.portrait .pilot {
 	width: 600px;

@@ -7,8 +7,18 @@
 			</div>
 			<div class="rhombus-back">&nbsp;</div>
 		</div>
-		<div class="pilot markdown">
-			<div v-html="getHistory()"/>
+		<div class="pilot">
+			<div class="pilot-gear">
+				<div class="gear-grid">
+					<div v-for="item in gearItems" class="pilot-gear-item">
+						<h1>{{ item.label }}</h1>
+						<h2>{{ item.name }}</h2>
+					</div>
+				</div>
+			</div>
+			<div class="pilot-notes markdown">
+				<div v-html="getHistory()"/>
+			</div>
 		</div>
 	</div>
 	<div class="pilot-modal portrait">
@@ -38,6 +48,10 @@ export default {
 			type: Object,
 			required: true,
 		},
+		pilotGear: {
+			type: Array,
+			default: () => [],
+		},
 	},
 	data() {
 		return {
@@ -45,6 +59,22 @@ export default {
 		};
 	},
 	computed: {
+		gearItems() {
+			const loadout = this.pilot.loadout || {}
+			const groups = [
+				['Armor', loadout.armor],
+				['Weapon', loadout.weapons],
+				['Weapon', loadout.extendedWeapons],
+				['Gear', loadout.gear],
+				['Gear', loadout.extendedGear],
+			]
+			return groups.flatMap(([label, items]) =>
+				(items || []).filter(Boolean).map((item) => {
+					const gear = this.pilotGear.find((obj) => obj.id === item.id)
+					return { label, name: gear?.name || 'ERR: DATA NOT FOUND' }
+				})
+			)
+		},
     pilotPortrait() {
       if (this.pilot.portrait) return this.pilot.portrait
       return `/pilots/${this.pilot.callsign.toUpperCase()}.webp`
