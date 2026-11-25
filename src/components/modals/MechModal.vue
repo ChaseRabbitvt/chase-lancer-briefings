@@ -138,6 +138,11 @@ export default {
         ...(this.activeLoadout.integratedMounts || []).map((mount) => ({ mount, type: 'Integrated' })),
       ]
       allMounts.forEach(({ mount, type }) => {
+        // Integrated mounts from Comp/Con exports hold a single weapon directly
+        if (mount.weapon) {
+          resolveMountSlots(type, mount.weapon);
+        }
+
         const mountSlots = mount.slots
         const mountSlotsIsArray = Array.isArray(mountSlots) && mountSlots.length > 0
         if (mountSlotsIsArray) {
