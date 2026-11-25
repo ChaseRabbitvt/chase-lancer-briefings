@@ -1,0 +1,8 @@
+{
+	"name": "chase-lancer-briefings",
+	"compatibility_date": "2026-11-24",
+	"assets": {
+		"directory": "./dist/",
+		"not_found_handling": "single-page-application"
+	}
+}
