@@ -31,6 +31,7 @@
 			<div class="section-content-container">
 				<div class="reserves-list-container">
 					<Reserve v-for="item in reserves" :key="item.name" :reserve="item" :pilots="pilots" />
+					<vue-markdown-it v-if="reserves.length === 0" source="## [ERR: REDACTED]" class="markdown" />
 				</div>
 			</div>
 		</section>
@@ -43,6 +44,7 @@
 				<div class="clocks-list-container">
 					<Clock v-for="item in clocks" :key="item.name" :clock="item" :animate="animate"
 						:animation-delay="clockAnimationDelay" />
+					<vue-markdown-it v-if="clocks.length === 0" source="## [ERR: REDACTED]" class="markdown" />
 				</div>
 			</div>
 		</section>
