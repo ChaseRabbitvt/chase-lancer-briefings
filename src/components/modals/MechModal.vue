@@ -8,7 +8,25 @@
       <div class="rhombus-back"></div>
     </div>
     <div class="mech">
-      <div class="mech-gear">
+      <div v-if="compactLayout" class="mech-gear mech-gear-compact">
+        <div class="gear-grid">
+          <div v-for="mount in compactMounts" class="mech-mount">
+            <h1>{{ mount.label }}</h1>
+            <h2>{{ mount.flavorName }}</h2>
+          </div>
+        </div>
+        <div v-if="mechSystems.length > 0" class="gear-grid">
+          <div v-for="system in mechSystems" class="system">
+            <h1>System</h1>
+            <h2>{{ system.flavorName }}</h2>
+          </div>
+        </div>
+        <div v-else class="no-systems">
+          <h1>SYSTEMS</h1>
+          <h2>ERR: NO SYSTEMS FOUND</h2>
+        </div>
+      </div>
+      <div v-else class="mech-gear">
         <div class="mech-column">
           <div v-if="mainMounts.length > 0" class="gear-row mech-mount">
             <div v-for="mainMount in mainMounts" class="main-mount">
@@ -115,6 +133,17 @@ export default {
       this.getMechSystems();
   },
   computed: {
+    // Trial layout (max 3 per row); only enabled for Shiro until approved for all mechs
+    compactLayout() {
+      return this.pilot.callsign.toUpperCase() === 'SHIRO'
+    },
+    compactMounts() {
+      return [
+        ...this.mainMounts.map((m) => ({ label: 'Main Mount', flavorName: m.flavorName })),
+        ...this.flexMounts.map((m) => ({ label: 'Flex Mount', flavorName: m.flavorName })),
+        ...this.heavyMounts.map((m) => ({ label: 'Heavy Mount', flavorName: m.flavorName })),
+      ]
+    },
     pilotPortrait() {
       return `/pilots/${this.pilot.callsign.toUpperCase()}.webp`
     },

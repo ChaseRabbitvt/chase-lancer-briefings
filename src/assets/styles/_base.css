@@ -1169,6 +1169,24 @@ section .section-header h1 {
 	padding: 1em 1em 1em 1em;
 }
 
+.mech-gear-compact {
+	display: flex;
+	flex-direction: column;
+	padding: 1em 1em 0.5em 1em;
+}
+
+.mech-gear-compact .gear-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	column-gap: 2em;
+	row-gap: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+.mech-gear-compact .no-systems {
+	padding: 0;
+}
+
 /* for Pilot view typing animation */
 .is-typed span.cursor {
 	display: inline-block;
