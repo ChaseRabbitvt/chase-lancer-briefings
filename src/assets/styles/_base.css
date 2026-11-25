@@ -1144,26 +1144,7 @@ section .section-header h1 {
 	color: var(--text-pilot-value);
 }
 
-.mech-modal .mech-column {
-	display: flex;
-	flex-direction: row;
-}
 
-.mech-column .gear-row {
-	display: flex;
-	flex-direction: column;
-	row-gap: 0.5em;
-	column-gap: 2em;
-	padding: 1em 0em 1em 1em;
-	flex-grow: 1;
-	/* width: 50%; */
-}
-
-.mech-column .gear-row.mech-system {
-	flex-direction: row;
-	flex-grow: 0.8;
-	padding: 0em 1em 1em 1em;
-}
 
 .mech-column div.no-systems {
 	padding: 1em 1em 1em 1em;
