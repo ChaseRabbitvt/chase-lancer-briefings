@@ -131,7 +131,9 @@ export default {
         if (item.id == "") return;
         const mountObj = this.weaponsData.find((obj) => { return item.id === obj.id }) || null
         item.flavorName = mountObj?.name || "";
-        this.mountEntries = [...this.mountEntries, { type, flavorName: item.flavorName }];
+        // "Main/Aux" mounts are Main mounts that also carry an Auxiliary weapon
+        const mountType = type === 'Main/Aux' ? 'Main' : type;
+        this.mountEntries = [...this.mountEntries, { type: mountType, flavorName: item.flavorName }];
       }
       const allMounts = [
         ...(this.activeLoadout.mounts || []).map((mount) => ({ mount, type: mount.mount_type })),
